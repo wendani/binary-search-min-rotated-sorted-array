@@ -5,11 +5,11 @@ CFLAGS    := $(AM_CFLAGS)
 
 LD        := gcc
 
-APPS      := min
+APPS      := min rotate
 OBJS      := $(APPS).o
 SRCS      := $(APPS).c
 
-min: min.o
+min: min.o rotate.o
 	$(LD) $(AM_CFLAGS) -o $@ $^ $(LDFLAGS)
 
 %.o: %.c

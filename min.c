@@ -1,6 +1,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+void left_rotate(int *nums, int nums_size, int k);
+
 #if 0
 int min_element(int a[], int size)
 {
@@ -19,9 +21,6 @@ int min_bin(int a[], int size)
 {
    int min, low, upp, mid;
 
-   if (size == 1)
-      return a[0];
-
    min = a[0];
 
    low = 1;
@@ -33,8 +32,7 @@ int min_bin(int a[], int size)
       if (a[mid] < min) {
          min = a[mid];
          upp = mid - 1;
-      }
-      else if (a[mid] > min) {
+      } else if (a[mid] > min) {
          low = mid + 1;
       } else {
          // equal
@@ -44,13 +42,43 @@ int min_bin(int a[], int size)
    return min;
 }
 
+void test(int size)
+{
+	int i, j;
+	int *a;
+
+	if (size < 1)
+		return;
+
+	a = (int *)malloc(size * sizeof(int));
+	if (!a)
+		return;
+
+	for (i = 0; i < size; i++) {
+		// initialize
+		for (j = 0; j < size; j++)
+			a[j] = j;
+
+		// rotation
+		left_rotate(a, size, i);
+		for (j = 0; j < size; j++)
+			printf("%2d ", a[j]);
+		printf("\n");
+
+		printf("min: %d\n\n", min_bin(a, size));
+	}
+
+	free(a);
+}
+
 int main(int argc, char *argv[])
 {
-
-   int a[] = {4, 5, 6, 7, 0, 1, 2, 3};
-   int b[] = {1};
-   int c[] = {2, 1};
-   printf("min: %d\n", min_bin(c, 2));
+   test(1);
+   test(2);
+   test(3);
+   test(4);
+   test(5);
+   test(32);
 
    return 0;
 }
